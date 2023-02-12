@@ -1,6 +1,7 @@
 ### Introduction
 Simple installation:
 ```
+brew install nvim
 mkdir -p ~/.config/nvim
 cd ~/.config/nvim
 curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/init.lua
@@ -11,7 +12,7 @@ You may need to open and close `nvim` a few times.
 ### Packages:
 - `mason`, which lets you install and start Language Servers (these allow you to do things like "Go to Definition", see compilation errors, etc.)
 
-### Developer Install
+### Advanced installation (for making updates to the github repository)
 ```
 cd ~/.config/nvim
 git clone https://github.com/robert-blankenship/nvim-init
