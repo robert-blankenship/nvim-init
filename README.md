@@ -32,15 +32,16 @@ https://github.com/nvim-lua/kickstart.nvim
 Dev environment setup
 ```
 sudo apt-get install tmux
-sudo apt-get install nvim
 sudo apt-get install zsh
 sudo apt-get install git
 
-mkdir -p ~/.config/nvim
-cd ~/.config/nvim
-git clone https://github.com/robert-blankenship/nvim-init
-mv nvim-init lua
-echo "require 'init'" > init.lua
+sudo apt-get install build-essential
+curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
+sudo apt install ./nvim-linux64.deb
+
+git config --global credential.helper store
+git config --global user.name
+git config --global user.email
 
 vi ~/.profile
 export SHELL='/usr/bin/zsh'
