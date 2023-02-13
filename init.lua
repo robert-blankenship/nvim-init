@@ -12,14 +12,8 @@ end
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
--- vim.g.nvim_tree_show_icons = {
---   folders = 0,
---   files = 0,
---   git = 0,
---   folder_arrows = 0,
--- }
+
+vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
 local function open_nvim_tree(data)
   -- buffer is a directory
   local directory = vim.fn.isdirectory(data.file) == 1
@@ -36,7 +30,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
-  
+
   -- TODO: Should I move lower?
   -- Directory tree in NVIM.
   use {
@@ -265,7 +259,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'python', 'java', 'lua' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
