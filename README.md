@@ -5,6 +5,9 @@ brew install nvim
 mkdir -p ~/.config/nvim
 cd ~/.config/nvim
 curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/init.lua
+mkdir ftplugin
+cd ftplugin
+curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/ftplugin/java.lua
 ```
 You may need to open and close `nvim` a few times.
 
@@ -46,29 +49,26 @@ git config --global core.editor nvim
 
 chsh -c /usr/bin/zsh $USER
 
-vi ~/.profile
+vi ~/.zshrc
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
-
-
-vi ~/.zshrc
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
+alias vi='nvim'
+alias vim='nvim'
+alias ls='ls --color=auto'
+alias l='ls'
+alias ll='ls -ahl'
+export CLICOLOR=1
+export PS1='%F{blue}%1~%f %B%#%b '
 
 sudo apt-get install default-jdk
 sudo apt-get install maven
-
 ```
 
-
-- Change Java indentation to 4
-
-Config `jdtls`
+Configure `jdtls`
 ```
-local config = {
-    cmd = {'/home/robert/jdt/bin/jdtls'},
-	    root_dir = vim.fs.dirname(vim.fs.find({'.gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-}
-require('jdtls').start_or_attach(config)
+cd ~/.config/nvim
+ln -s lua/ftplugin ftplugin
 ``` 

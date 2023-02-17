@@ -1,0 +1,4 @@
+- Would like to fix the issue with Java indentation.
+- Don't use ftplugin
+- Don't copy keymappings all over the place.
+
