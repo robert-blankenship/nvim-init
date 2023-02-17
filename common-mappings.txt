@@ -19,6 +19,14 @@
 - `K` See documentation
 - `<leader>e` if there is an error message, show the entire thing as a popup
 
+# VIM: Moving around (more obscure)
+- `zz` move current line to middle of screen
+- `zt` move current line to top of screen
+- `zb` move current line to bottom of screen
+- `ctrl + o` back to last buffer. (for example, after `gd` for go to definition)
+- `ctrl + i` forward to next buffer.
+
+
 # VIM Useful commands
 - `A` while in Command Mode to insert at the end of the line.
 
