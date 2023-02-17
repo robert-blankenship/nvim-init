@@ -1,3 +1,4 @@
+# Nvim-Tree useful key commands
 - Enter to open/close node of tree
 - Enter or Click to open a file
 - Tab to open while being focused on tree
@@ -12,6 +13,21 @@
 - Ctrl + ] (change base directory of tree)
 
 - q to close
+
+# LSP Config
+- `<leader>rn` rename
+- `K` See documentation
+- `<leader>e` if there is an error message, show the entire thing as a popup
+
+# VIM Useful commands
+- `A` while in Command Mode to insert at the end of the line.
+
+# VIM: Magically select text, then search for it in the document
+- `v` from command mode to enter visual mode
+- Select the text
+- `y` to yank
+- `/` to enter Find mode
+- `Ctrl + R`, THEN `"` to paste the text from the register (holy cow)
 
 
 

@@ -14,24 +14,12 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
-local function open_nvim_tree(data)
-  -- buffer is a directory
-  local directory = vim.fn.isdirectory(data.file) == 1
-  if not directory then
-    return
-  end
-  -- change to the directory
-  vim.cmd.cd(data.file)
-  -- open the tree
-  require("nvim-tree.api").tree.open()
-end
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
-  -- TODO: Should I move lower?
+  -- TODO: Better icons for nvim-tree
   -- Directory tree in NVIM.
   use {
     'nvim-tree/nvim-tree.lua',
@@ -96,6 +84,13 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+
+  use {
+    "nvim-telescope/telescope-file-browser.nvim",
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  }
+
+  require("telescope").load_extension "file_browser"
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
@@ -256,6 +251,12 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- nvim-tree
+vim.keymap.set('n', '<leader>t', require('nvim-tree').toggle, { desc = '[S]earch [D]iagnostics' })
+
+-- nvim-telescope file browser
+vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser)
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
