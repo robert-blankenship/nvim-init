@@ -13,7 +13,8 @@ mkdir ftplugin
 cd ftplugin
 curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/ftplugin/java.lua
 ```
-You may need to open and close `nvim` a few times.
+
+Whenever adding or removing packages, you may need to open and close `nvim` a few times.
 
 
 ### Advanced installation (for making updates to the github repository)

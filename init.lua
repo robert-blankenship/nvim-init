@@ -52,6 +52,7 @@ require('packer').startup(function(use)
     },
   }
 
+  -- Java support
   use 'mfussenegger/nvim-jdtls'
 
   use { -- Autocompletion
@@ -176,6 +177,12 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Smoother and faster scroll
+vim.keymap.set('n', '<C-e>', 'j<C-e>', { silent = true })
+vim.keymap.set('n', '<C-y>', 'k<C-y>', { silent = true })
+vim.keymap.set('n', '<C-p>', '3k3<C-y>', { silent = true })
+vim.keymap.set('n', '<C-n>', '3j3<C-e>', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -458,6 +465,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
