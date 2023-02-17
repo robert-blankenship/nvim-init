@@ -87,10 +87,12 @@ require('packer').startup(function(use)
 
   use {
     "nvim-telescope/telescope-file-browser.nvim",
-    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    run = function()
+      require("telescope").load_extension "file_browser"
+      vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser)
+    end
   }
-
-  require("telescope").load_extension "file_browser"
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
@@ -256,7 +258,6 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 vim.keymap.set('n', '<leader>t', require('nvim-tree').toggle, { desc = '[S]earch [D]iagnostics' })
 
 -- nvim-telescope file browser
-vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser)
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
