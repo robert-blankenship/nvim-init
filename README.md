@@ -42,11 +42,33 @@ sudo apt install ./nvim-linux64.deb
 git config --global credential.helper store
 git config --global user.name
 git config --global user.email
+git config --global core.editor nvim
+
+chsh -c /usr/bin/zsh $USER
 
 vi ~/.profile
-export SHELL='/usr/bin/zsh'
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
+
+
+vi ~/.zshrc
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
+
+sudo apt-get install default-jdk
+sudo apt-get install maven
+
 ```
+
+
+- Change Java indentation to 4
+
+Config `jdtls`
+```
+local config = {
+    cmd = {'/home/robert/jdt/bin/jdtls'},
+	    root_dir = vim.fs.dirname(vim.fs.find({'.gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+}
+require('jdtls').start_or_attach(config)
+``` 
