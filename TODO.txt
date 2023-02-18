@@ -1,4 +1,13 @@
-- Would like to fix the issue with Java indentation.
+NVIM Configuration:
 - Don't use ftplugin
 - Don't copy keymappings all over the place.
+
+Java:
+- Would like to fix the issue with Java indentation.
+- Ability to run a class from within `nvim`
+- Ability to quickly import a new class
+
+Key mappings:
+zc, zo, za, zi - folding
+Try to see if `Ctrl+f`, `Ctrl+b`, `Ctrl+n`, `Ctrl+p` can work in insert mode
 

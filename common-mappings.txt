@@ -1,41 +1,92 @@
 # Nvim-Tree useful key commands
-- Enter to open/close node of tree
-- Enter or Click to open a file
-- Tab to open while being focused on tree
-- a to create a file
-- r to rename a file
-- x and then p to move a file
-- c and then p to paste a file
+<Enter> to open/close node of tree
+<Enter> or Click to open a file
+<Tab> to open while being focused on tree
+a to create a file
+r to rename a file
+x and then p to move a file 
+c and then p to paste a file
+Ctrl + v (open in vsplit)
+"-" to change the directory to the parent directory
+Ctrl + ] (change base directory of tree)
+q to close
 
-- Ctrl + v (open in vsplit)
+# Code commands:
+select some text using visual mode, and then `gc` to comment it out
 
-- "-" to change the directory to the parent directory
-- Ctrl + ] (change base directory of tree)
+# LSP helpers
+`<leader>rn` rename
+`<leader>e` if there is an error message, show the entire thing as a popup
+`K` See documentation
 
-- q to close
+# VIM windows:
+ctrl-w c Close the window
+ctrl-w n New window
+ctrl-w s New window above
+ctrl-w v New window to the right
+ctrl-w o Maximize current window.
+ctrl-w h/j/k/l - Move to adjacent window
 
-# LSP Config
-- `<leader>rn` rename
-- `K` See documentation
-- `<leader>e` if there is an error message, show the entire thing as a popup
+# VIM: Moving around, very useful.
+`ctrl + o` back to last buffer. (for example, after `gd` for go to definition)
+`ctrl + i` forward to next buffer.
+`{` or `}` - Move cursor to next/previous empty newline. Does NOT ignore whitespace :(
 
+# VIM: Finding stuff:
+`/` or `?` - Search for an expression forwards/backwards.
+`*` or `#` - Move cursor to previous occurrence of current word (case insensitive)
+`g*`, `g#` Move cursor to next/previous occurrence of word (substring match okay)
+
+# VIM text segments:
+`W` go to start of next text segment.
+`E` go to end of next text segment.
+`B` go to start of previous text segment.
+# VIM words:
+`w` go to start of next word or punctuation
+`e` go to end of next word or punctuation
+`b` go to start of previous word or punctuation
+# VIM: Inserting from Normal mode:
+`o` - add new line below (uses indentation of current line)
+`O` - add new line above (uses indentation of current line)
+`S` - delete line and enter Insert mode (respects indentation)
+`I` - insert at start of line (respects indentation)
 # VIM: Moving around (more obscure)
-- `zz` move current line to middle of screen
-- `zt` move current line to top of screen
-- `zb` move current line to bottom of screen
-- `ctrl + o` back to last buffer. (for example, after `gd` for go to definition)
-- `ctrl + i` forward to next buffer.
-
+`zz` move current line to middle of screen
+`zt` move current line to top of screen
+`zb` move current line to bottom of screen
 
 # VIM Useful commands
-- `A` while in Command Mode to insert at the end of the line.
+`A` while in Command Mode, insert at the end of the line.
+`I` while in Command Mode, insert at the beginning of the line.
+`=G` - fix indentaion
 
-# VIM: Magically select text, then search for it in the document
-- `v` from command mode to enter visual mode
-- Select the text
-- `y` to yank
-- `/` to enter Find mode
-- `Ctrl + R`, THEN `"` to paste the text from the register (holy cow)
+# VIM: Commands using `g`
+`gv` - reselect last visual selection
+`gf` - jump to this filename (what??)
 
+# VIM: Moving. in Normal mode
+`Ctrl-e` and `Ctrl-y` - drag screen up and down (a little slow, but easier on the eyes in my opinion)
+`''` Go to last location
+`'.` Go to last edit.
 
+# VIM: Niche Normal Mode movement mappings
+`+` - move to first character of next line
+`-` - move to first character of previous line
+`F`, `T`, `t`, `f` - Jump to before/after of next/previous character on line (for example, `F(` to find next paranthesis).
+`;` and `,` (after jumping to a character with `F`/`T`/`t`/`f`) - Go to next match
+`(`,`)` - Jump to next/previous sentence (looks for '.' character).
+
+# VIM: Somewhat overrated in my opinion
+`s` - substitute character (a little too niche, just do `x` to delete a character and `i` for insert mode)
+
+# VIM: Paste from register into Command Mode.
+`<Ctrl>-r 0` - Paste yanked text into command prompt (I usually use this for searching for selected text, `#` and `*` accomplish this a little faster)
+`Ctrl + R`, THEN `"` to paste the text from the register (holy cow)
+
+# VIM (niche): Select text, then search for it in the document
+`v` from command mode to enter visual mode
+Select the text
+`y` to yank
+`/` to enter Find mode
+Paste from register (`ctrl+r 0` or `ctrl+r "`)
 
