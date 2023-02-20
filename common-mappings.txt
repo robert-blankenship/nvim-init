@@ -13,6 +13,9 @@ q to close
 
 # Code commands:
 select some text using visual mode, and then `gc` to comment it out
+To automatically import a class, start typing the class name and then select it from the autocomplete and hit <Enter>
+`<leader>D` Go to the type of the variable
+`<leader>/` Find terms within your file ABSOLUTELY AWESOME
 
 # LSP helpers
 `<leader>rn` rename
