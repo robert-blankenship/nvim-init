@@ -1,12 +1,14 @@
 NVIM Configuration:
 - Don't use ftplugin
 - Don't copy keymappings all over the place.
-- Creating a package in Java.
 
 Java:
 - Would like to fix the issue with Java indentation.
-- Ability to run a class from within `nvim`
-- `mvn compile exec:java -Dexec.mainClass=yourpackage.MainClass
+- Create a package using jdtls.
+
+TODO:
+- Create plugin for build-runner
+- maven-runner plugin
 
 Key mappings:
 zc, zo, za, zi - folding
