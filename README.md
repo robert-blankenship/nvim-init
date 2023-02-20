@@ -41,9 +41,14 @@ curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.
 sudo apt install ./nvim-linux64.deb
 chsh -c /usr/bin/zsh $USER
 
+# For Java support
 # Install jdtls language server
 curl -LO https://download.eclipse.org/jdtls/milestones/1.9.0/jdt-language-server-1.9.0-202203031534.tar.gz
-# untar
+# untar, move directory somewhere, add `jdtls` to your PATH.
+
+# Extensions to make `nvim/telescope` better.
+sudo apt-get install fd-find
+sudo apt-get instal ripgrep
 
 sudo apt-get install openjdk-17
 sudo apt-get install openjdk-17-sources
@@ -53,7 +58,7 @@ sudo apt-get install maven
 Setting up `~/.zshrc` (only somewhat related to nvim
 ```
 vi ~/.zshrc
-export PATH=${HOME}/jdt/bin:$PATH
+export PATH=/usr/local/jdt/bin:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_CACHE_HOME=${HOME}/.cache

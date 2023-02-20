@@ -37,6 +37,9 @@ require('packer').startup(function(use)
     end
   }
 
+  -- Get pretty colors when running Java commands in Nvim.
+  use { 'm00qek/baleia.nvim', tag = 'v1.2.0' }
+
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -84,16 +87,19 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { 'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep' },
+  }
 
   use {
     "nvim-telescope/telescope-file-browser.nvim",
     requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     run = function()
-      require("telescope").load_extension "file_browser"
-      vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser)
     end
   }
+
+  use { 'nvim-telescope/telescope-ui-select.nvim' }
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
@@ -175,8 +181,9 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- TODO: Is this wanted?
+-- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Smoother and faster scroll
 vim.keymap.set('n', '<C-e>', 'j<C-e>', { silent = true })
@@ -199,6 +206,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
+    globalstatus = true,
     icons_enabled = false,
     theme = 'onedark',
     component_separators = '|',
@@ -228,21 +236,22 @@ require('gitsigns').setup {
   },
 }
 
+-- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'ui-select')
+pcall(require("telescope").load_extension, "file_browser")
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
-    },
-  },
+  -- extensions = {
+  --   file_browser = {
+  --     theme = "ivy",
+  --     prompt_title = vim.loop.cwd()
+  --   }
+  -- }
 }
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -260,9 +269,10 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sb', require('telescope').extensions.file_browser.file_browser)
 
 -- nvim-tree
-vim.keymap.set('n', '<leader>t', require('nvim-tree').toggle, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>t', require('nvim-tree').toggle, { desc = 'Open File[t]ree' })
 
 -- nvim-telescope file browser
 
@@ -465,6 +475,66 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+local run_and_display_output = function (shell_command)
+
+  local function create_scratch_window()
+    -- Create a buffer (listed and scratch mode).
+    -- Sets nomodified and nomodeline to true.
+    local buf_handle = vim.api.nvim_create_buf(true, true)
+
+    -- Open a window below to compile and show the output.
+    -- TODO: Try a more creative way to show the compiler. Maybe a popover? Smaller window?
+    vim.cmd.split()
+
+    local window = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_buf(window, buf_handle)
+
+    vim.keymap.set('n', 'q', function() vim.api.nvim_win_close(window, false) end, { buffer = buf_handle})
+
+    return buf_handle
+  end
+
+  local run_java_buffer_handle = create_scratch_window()
+
+  local baleia = require 'baleia'.setup {}
+
+  -- Start the compilation job. Send the output to 
+  vim.fn.jobstart(shell_command, {
+    --pty = true,
+    on_stdout = function (_, data)
+      if data then
+        -- Are there some edge cases here? Two idea:
+        -- - If the shell program doesn't return a newline, will data be emitted to the `on_stdout`
+        --   callback?
+        -- - If the data _is_ emitted when there is no newline, is this way of doing things correct?
+        -- - How will this handle shell commands that rewrite the last line (like a curl progress bar)?.
+
+        --   The reason we overwrite the last line is because a trailing newline will be added
+        -- since that newline exists in the output of the shell command. If we don't overwrite the
+        -- last line in the buffer, then there will be random gaps in the output.
+        local lastline = vim.api.nvim_buf_line_count(run_java_buffer_handle)
+        baleia.buf_set_lines(run_java_buffer_handle, lastline - 1, -1, true, data)
+      end
+    end
+  });
+end
+
+local function command_runner(shell_arguments_async)
+  return function()
+    run_and_display_output(shell_arguments_async())
+  end
+end
+
+local function maven_compile_and_exec()
+  local class_name = require('jdtls.util').resolve_classname()
+  return {"mvn", "compile", "exec:java", "-Dexec.mainClass=" .. class_name}
+end
+
+-- `mvn` must be in your $PATH when `nvim` is started.
+vim.keymap.set('n', '<leader>cr', command_runner(maven_compile_and_exec), {desc = "[C]ompile then [R]un your Java code."})
+vim.keymap.set('n', '<leader>cc', command_runner(function() return {"mvn", "compile"} end), {desc = "Only [C]ompile your code."})
+vim.keymap.set('n', '<leader>cl', command_runner(function() return {"mvn", "clean"} end ), {desc = "Run `mvn` [C]lean"})
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`

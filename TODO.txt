@@ -1,11 +1,12 @@
 NVIM Configuration:
 - Don't use ftplugin
 - Don't copy keymappings all over the place.
+- Creating a package in Java.
 
 Java:
 - Would like to fix the issue with Java indentation.
 - Ability to run a class from within `nvim`
-- Ability to quickly import a new class
+- `mvn compile exec:java -Dexec.mainClass=yourpackage.MainClass
 
 Key mappings:
 zc, zo, za, zi - folding
