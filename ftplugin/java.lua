@@ -1,5 +1,6 @@
+local xdg_home = os.getenv('XDG_STATE_HOME') or '~/.config/'
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-local workspace_dir = os.getenv('XDG_STATE_HOME') .. '/nvim-jdtls/workspace/' .. project_name
+local workspace_dir = xdg_home .. '/nvim-jdtls/workspace/' .. project_name
 
 require('jdtls').start_or_attach({
 	cmd={'jdtls', '-data', workspace_dir}
