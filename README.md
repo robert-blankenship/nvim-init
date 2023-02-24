@@ -12,6 +12,10 @@ curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/in
 mkdir ftplugin
 cd ftplugin
 curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/ftplugin/java.lua
+
+# For better searches. Gives you the ability to ignore files in your `.gitignore`.
+brew install ripgrep
+
 ```
 
 Whenever adding or removing packages, you may need to open and close `nvim` a few times.
