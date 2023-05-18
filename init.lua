@@ -535,6 +535,7 @@ end
 vim.keymap.set('n', '<leader>cr', command_runner(maven_compile_and_exec), {desc = "[C]ompile then [R]un your Java code."})
 vim.keymap.set('n', '<leader>cc', command_runner(function() return {"mvn", "compile"} end), {desc = "Only [C]ompile your code."})
 vim.keymap.set('n', '<leader>cl', command_runner(function() return {"mvn", "clean"} end ), {desc = "Run `mvn` [C]lean"})
+vim.keymap.set('n', '<leader>ct', command_runner(function() return {"mvn", "compile", "test"} end ), {desc = "Run `mvn` [C]ompile and [T]est"})
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
