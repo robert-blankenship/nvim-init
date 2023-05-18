@@ -6,11 +6,17 @@ Java:
 - Would like to fix the issue with Java indentation.
 - Create a package using jdtls.
 
-TODO:
-- Create plugin for build-runner
-- maven-runner plugin
+Build Runner:
+- Should be able to tail the file.
+- Cancel the execution of the job.
+- Run tests.
+- Set environment variables?
 
 Key mappings:
 zc, zo, za, zi - folding
 Try to see if `Ctrl+f`, `Ctrl+b`, `Ctrl+n`, `Ctrl+p` can work in insert mode
+
+TODO Wishlist:
+- Publish Neovim plugin for running jobs.
+- Publish maven-runner plugin
 

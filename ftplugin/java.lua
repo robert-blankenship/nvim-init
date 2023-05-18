@@ -1,4 +1,4 @@
-local xdg_home = os.getenv('XDG_STATE_HOME') or '~/.config/'
+local xdg_home = os.getenv('XDG_STATE_HOME') or (os.getenv('HOME') .. '/.config/')
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspace_dir = xdg_home .. '/nvim-jdtls/workspace/' .. project_name
 
