@@ -87,6 +87,10 @@ git config --global credential.helper store
 git config --global user.name
 git config --global user.email
 git config --global core.editor nvim
+
+# Swap caps lock with control. Likely only
+# works on some Linux distributions.
+/usr/bin/setxkbmap -option "ctrl:nocaps"
 ```
 
 ### Packages:
