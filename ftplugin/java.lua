@@ -2,8 +2,17 @@ local xdg_home = os.getenv('XDG_STATE_HOME') or (os.getenv('HOME') .. '/.config/
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspace_dir = xdg_home .. '/nvim-jdtls/workspace/' .. project_name
 
+local lombok_jar = xdg_home .. '/nvim/dependencies/lombok.jar'
+
 require('jdtls').start_or_attach({
-	cmd={'jdtls', '-data', workspace_dir}
+	cmd={
+		'jdtls',
+		'--jvm-arg=-javaagent:' .. lombok_jar,
+		'-data', workspace_dir
+	},
+	on_attach = function() 
+		require('jdtls.setup').add_commands()
+	end
 })
 
 -- mappings:
