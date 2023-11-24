@@ -16,6 +16,10 @@ curl -O https://raw.githubusercontent.com/robert-blankenship/nvim-init/master/ft
 # For better searches. Gives you the ability to ignore files in your `.gitignore`.
 brew install ripgrep
 
+# To enable Lombok.
+mkdir ~/.config/nvim/dependencies
+cd ~/.config/nvim/dependencies
+curl -LO https://projectlombok.org/downloads/lombok.jar
 ```
 
 Whenever adding or removing packages, you may need to open and close `nvim` a few times.
@@ -47,7 +51,7 @@ chsh -c /usr/bin/zsh $USER
 
 # For Java support
 # Install jdtls language server
-curl -LO https://download.eclipse.org/jdtls/milestones/1.9.0/jdt-language-server-1.9.0-202203031534.tar.gz
+curl -LO https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.23.0/jdt-language-server-1.23.0-202304271346.tar.gz
 # untar, move directory somewhere, add `jdtls` to your PATH.
 
 # Extensions to make `nvim/telescope` better.
@@ -91,5 +95,6 @@ git config --global core.editor nvim
 
 ### Packages:
 - `mason`, which lets you install and start Language Servers (these allow you to do things like "Go to Definition", see compilation errors, etc.)
+- Do NOT install `jdtls` with Mason, this will mess up your environment.
 - other packages (TODO, list out packages)
 
