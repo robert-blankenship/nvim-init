@@ -95,6 +95,10 @@ git config --global core.editor nvim
 # Swap caps lock with control. Likely only
 # works on some Linux distributions.
 /usr/bin/setxkbmap -option "ctrl:nocaps"
+
+# FOR GUI SYSTEMS
+sudo apt install gnome-tweaks
+Open Gnome Tweaks, go to "Keyboard" then "Additional Layout Options", go to "Caps Lock Behavior", then select "Make Caps Lock an additional Ctrl"
 ```
 
 ### Packages:
